@@ -1,3 +1,209 @@
-.formContainer{
-    background: red;
+.formContainer {
+  // background: #264143;
+  background: #2b6777;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .formWrapper {
+    background-color: #fff;
+    padding: 20px 50px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+
+    .chatLogo {
+      font-weight: bold;
+      font-size: 24px;
+      color: #52ab98;
+
+      margin-bottom: 5px;
+    }
+    .chatRegister {
+      font-size: 14px;
+      margin-bottom: 6px;
+      color: #5b5b5b;
+    }
+    .form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      input {
+        padding: 8px 15px;
+        margin: 5px 0;
+        border: none;
+        outline: none;
+        border-bottom: 1px solid #2b6777;
+        width: 260px;
+        font-size: 18px;
+        &::placeholder {
+          color: rgb(175, 175, 175);
+        }
+      }
+      .fileInput {
+        display: none;
+      }
+      button {
+        background: #52ab98;
+        padding: 10px;
+        color: white;
+        font-weight: bold;
+        border: unset;
+        cursor: pointer;
+        margin: 8px 0;
+      }
+      .logon {
+        color: #5b5b5b;
+        margin-top: 10px;
+        font-size: 13px;
+      }
+      label {
+        display: flex;
+        align-items: center;
+        color: #52ab98;
+        gap: 10px;
+        font-size: 13px;
+        cursor: pointer;
+        margin: 10px 0;
+        img {
+          width: 40px;
+          height: 40px;
+        }
+      }
+    }
+  }
+}
+.home {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #2b6777;
+  height: 100vh;
+
+  .homeContainer {
+    border: 1px solid whitesmoke;
+    width: 75%;
+    height: 85%;
+    border-radius: 10px;
+    display: flex;
+    overflow: hidden;
+
+    .sidebar {
+      flex: 1;
+      background: #0f3742;
+
+      .navbar {
+        display: flex;
+        align-items: center;
+        padding: 10px;
+        background-color: #072128;
+        height: 45px;
+        justify-content: space-between;
+        color: #e1eae8;
+
+        .logo {
+          font-weight: bold;
+        }
+
+        .user {
+          display: flex;
+          gap: 10px;
+          align-items: center;
+
+          .userImg {
+            background-color: #52ab98;
+            height: 24px;
+            width: 24px;
+            border-radius: 50%;
+            object-fit: cover;
+          }
+          button {
+            font-size: 11px;
+            background-color: #0f4e60;
+            color: #e1eae8;
+            border: unset;
+            padding: 5px;
+            cursor: pointer;
+            &:hover {
+              background-color: #2a7a90;
+              scale: 1.056;
+            }
+          }
+        }
+      }
+      .search {
+        border-bottom: 1px solid #52ab98;
+        .searchInfo {
+          padding: 10px;
+
+          input {
+            background-color: transparent;
+            outline: none;
+            border: unset;
+            color: white;
+            &::placeholder {
+              color: lightgray;
+            }
+          }
+        }
+      }
+      .usersChat {
+        display: flex;
+        padding: 10px;
+        gap: 10px;
+        cursor: pointer;
+        align-items: center;
+        color: white;
+
+        &:hover {
+          background-color: #072128;
+        }
+        img {
+          width: 50px;
+          height: 50px;
+          background-color: #e1eae8;
+          border-radius: 50%;
+          object-fit: cover;
+        }
+        .chatInfo {
+          span {
+            font-size: 18px;
+            font-weight: 500;
+          }
+          p {
+            font-size: 14px;
+            color: lightgray;
+          }
+        }
+      }
+    }
+    .chatbar {
+      flex: 2;
+      .chatInfo{
+        height: 45px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px;
+        background-color: #072128;
+        color: lightgray;
+        .icons{
+            display: flex;
+            align-items: center;
+            gap: 13px;
+            padding: 10px;
+        }
+        img{
+            object-fit: cover;
+            cursor: pointer;
+        }
+        .invert-img{
+            filter: brightness(10);
+        }
+      }
+    }
+  }
 }

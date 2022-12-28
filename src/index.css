@@ -2,8 +2,11 @@ html {
   scroll-behavior: smooth;
   font-family: Helvetica, sans-serif, Arial;
 }
-
+*{
+  padding: 0;
+  margin: 0;
+}
 body {
-  margin: 0 auto;
   overflow-x: hidden;
+
 }
