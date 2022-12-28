@@ -2,6 +2,8 @@ import React from 'react'
 import plus from '../images/plus.png';
 import chat from '../images/chat.png';
 import key from '../images/key.png';
+import MessagesComp from './MessagesComp';
+import Inputs from './Inputs';
 
 const Chat = () => {
   return (
@@ -14,6 +16,8 @@ const Chat = () => {
           <img src={plus} alt="" className='invert-img'/>
         </div>
       </div>
+      <MessagesComp/>
+      <Inputs/>
     </div>
   )
 }

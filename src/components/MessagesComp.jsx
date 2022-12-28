@@ -1,8 +1,18 @@
 import React from 'react'
+import EachMessage from './EachMessage'
 
 const MessagesComp = () => {
   return (
-    <div>MessagesComp</div>
+    <div className='messages'>
+        <EachMessage/>
+        <EachMessage/>
+        <EachMessage/>
+        <EachMessage/>
+        <EachMessage/>
+        <EachMessage/>
+        <EachMessage/>
+        <EachMessage/>
+    </div>
   )
 }
 
