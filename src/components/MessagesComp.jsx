@@ -1,19 +1,36 @@
-import React from 'react'
-import EachMessage from './EachMessage'
+import React, { useContext, useEffect, useState } from "react";
+import { doc, onSnapshot } from "firebase/firestore";
+import { ChatContext } from "../context/ChatContext";
+import { db } from "../firebase";
+import EachMessage from "./EachMessage";
 
 const MessagesComp = () => {
-  return (
-    <div className='messages'>
-        <EachMessage/>
-        <EachMessage/>
-        <EachMessage/>
-        <EachMessage/>
-        <EachMessage/>
-        <EachMessage/>
-        <EachMessage/>
-        <EachMessage/>
-    </div>
-  )
-}
+  const [eachMsg, setEachMsg] = useState([]);
+  const { data } = useContext(ChatContext);
 
-export default MessagesComp
+  useEffect(() => {
+   
+    const getMesages= () => {
+      const unsub = onSnapshot(doc(db, "chats", data.chatId), (doc) => {
+        const source = doc.metadata.hasPendingWrites ? "Local" : "Server";
+        setEachMsg(doc.data().messages)
+      });
+      return () => {
+        unsub();
+      };
+    };
+    data.chatId && getMesages();
+  }, [data.chatId]);
+
+  return (
+    <div className="messages">
+      {
+        eachMsg.map(msg=>(
+          <EachMessage message = {msg} key={msg.id}/>
+        ))
+      }
+    </div>
+  );
+};
+
+export default MessagesComp;
