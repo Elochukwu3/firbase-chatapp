@@ -8,12 +8,10 @@ const MessagesComp = () => {
   const [eachMsg, setEachMsg] = useState([]);
   const { data } = useContext(ChatContext);
 
-  useEffect(() => {
-   
+  useEffect(() => { 
     const getMesages= () => {
       const unsub = onSnapshot(doc(db, "chats", data.chatId), (doc) => {
-        const source = doc.metadata.hasPendingWrites ? "Local" : "Server";
-        setEachMsg(doc.data().messages)
+        doc.exists() && setEachMsg(doc.data().messages)
       });
       return () => {
         unsub();

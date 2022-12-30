@@ -33,7 +33,7 @@ const Inputs = () => {
             await updateDoc(doc(db, "chats", data.chatId), {
               messages: arrayUnion({
                 id: uuid(),
-                text,
+                text, 
                 senderId: currentUser.uid,
                 date: Timestamp.now(),
                 img: downloadURL,
@@ -52,6 +52,7 @@ const Inputs = () => {
         }),
       });
     }
+
     await updateDoc(doc(db, "chatCollections", currentUser.uid), {
       [data.chatId + ".lastMessage"]: {
         text,
@@ -60,13 +61,14 @@ const Inputs = () => {
     });
 
     await updateDoc(doc(db, "chatCollections", data.user.uid), {
-      [data.chatId + ".lastMmessage"]: {
+      [data.chatId + ".lastMessage"]: {
         text,
       },
       [data.chatId + ".date"]: serverTimestamp(),
     });
-    setText("");
-    setImage(null);
+  console.log("hiiii");
+    setText("")
+    setImage(null)
   };
 
   return (

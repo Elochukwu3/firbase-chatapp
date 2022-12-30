@@ -54,7 +54,6 @@ const navigate = useNavigate();
 
       e.target.reset();
     } catch (error) {
-      console.log(error);
       setErr(true);
     }
   };

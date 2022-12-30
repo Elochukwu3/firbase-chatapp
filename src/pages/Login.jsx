@@ -16,9 +16,7 @@ const Login = () => {
       await signInWithEmailAndPassword(auth, userEmail, userPassword);
       e.target.reset();
       navigate("/");
-
     } catch (error) {
-      console.log(error);
       setErr(true);
     }
   };
@@ -31,10 +29,13 @@ const Login = () => {
         <form className="form" onSubmit={handleSubmit}>
           <input type={"email"} placeholder={"email"} name="email" />
           <input type={"password"} placeholder={"password"} name="password" />
-
           <button type="submit">Sign in</button>
+          
+          {err && <span>something went wrong</span>}
         </form>
-        <p className="logon">You don't have an account? <Link to={'/sigup'}>Register</Link></p>
+        <p className="logon">
+          You don't have an account? <Link to={"/sigup"}>Register</Link>
+        </p>
       </div>
     </div>
   );

@@ -11,7 +11,8 @@ const EachMessage = ({ message }) => {
 
   const { currentUser } = useContext(AuthContext);
   const { data } = useContext(ChatContext);
-
+console.log(message.senderId);
+console.log(currentUser.uid);
   return (
     <div
       ref={myRef}
