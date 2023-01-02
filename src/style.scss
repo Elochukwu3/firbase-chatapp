@@ -131,11 +131,13 @@
     .sidebar {
       flex: 1;
       background: #0f3742;
-      overflow: auto;
       position: relative;
       height: 100%;
-
+&::-webkit-scrollbar{
+  display: none;
+}
       @include mobile() {
+        width: 100%;
         &.appear {
           opacity: 0;
           height: 0;
