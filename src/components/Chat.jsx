@@ -1,14 +1,19 @@
-import React, { useContext } from "react";
+import React, { useContext, useRef } from "react";
 import plus from "../images/plus.png";
 import chat from "../images/chat.png";
 import key from "../images/key.png";
 import MessagesComp from "./MessagesComp";
 import Inputs from "./Inputs";
-import { AuthContext } from "../context/AuthContext";
 import { ChatContext } from "../context/ChatContext";
 
-const Chat = () => {
-  const { data } = useContext(ChatContext);
+const Chat = ({myRef, ownRef}) => {
+  const { data} = useContext(ChatContext);
+ 
+  const handleDisplay = ()=>{
+ myRef.classList.add("appear");
+ ownRef.classList.remove("appear")
+  }
+
   return (
     <div className="chatbar">
       <div className="chatInfo">
@@ -16,7 +21,7 @@ const Chat = () => {
         <div className="icons">
           <img src={chat} alt="" />
           <img src={key} alt="" className="invert-img" />
-          <img src={plus} alt="" className="invert-img" />
+          <img src={plus} alt="" className="invert-img" onClick={handleDisplay}/>
         </div>
       </div>
       <MessagesComp />

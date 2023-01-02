@@ -10,11 +10,11 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <AuthProvider>
     <ChatProvider>
-        <React.StrictMode>
       <BrowserRouter>
+        <React.StrictMode>
           <App />
-      </BrowserRouter>
         </React.StrictMode>
+      </BrowserRouter>
     </ChatProvider>
   </AuthProvider>
 );

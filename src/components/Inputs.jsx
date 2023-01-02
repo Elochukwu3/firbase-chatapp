@@ -5,6 +5,7 @@ import {
   updateDoc,
   serverTimestamp,
 } from "firebase/firestore";
+
 import React, { useContext, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { ChatContext } from "../context/ChatContext";
@@ -23,52 +24,65 @@ const Inputs = () => {
 
   const handleSubmit = async () => {
     if (image) {
-      const storageRef = ref(storage, uuid());
-      const uploadTask = uploadBytesResumable(storageRef, image);
-      uploadTask.on(
-        (error) => {},
+      const storeImages = async (text) => {
+        const storageRef = await ref(storage, uuid());
+        const uploadTask =  uploadBytesResumable(storageRef, image);
+        uploadTask.on(
+          (error) => {
+            console.log(error);
+          },
 
-        () => {
-          getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
-            await updateDoc(doc(db, "chats", data.chatId), {
-              messages: arrayUnion({
-                id: uuid(),
-                text, 
-                senderId: currentUser.uid,
-                date: Timestamp.now(),
-                img: downloadURL,
-              }),
-            });
-          });
-        }
-      );
+          () => {
+            getDownloadURL(uploadTask.snapshot.ref).then(
+              async (downloadURL) => {
+                await updateDoc(doc(db, "chats", data.chatId), {
+                  messages: arrayUnion({
+                    id: uuid(),
+                    text: text,
+                    senderId: currentUser.uid,
+                    date: Timestamp.now(),
+                    img: downloadURL,
+                  }),
+                });
+              }
+            );
+          }
+        );
+      };
+      if (image && text !== "") {
+        storeImages(text);
+      } else if (image && text === "") {
+        storeImages("image");
+      }
     } else {
-      await updateDoc(doc(db, "chats", data.chatId), {
-        messages: arrayUnion({
-          id: uuid(),
-          text,
-          senderId: currentUser.uid,
-          date: Timestamp.now(),
-        }),
-      });
+      if (text !== "") {
+        await updateDoc(doc(db, "chats", data.chatId), {
+          messages: arrayUnion({
+            id: uuid(),
+            text: text,
+            senderId: currentUser.uid,
+            date: Timestamp.now(),
+          }),
+        });
+      }
     }
 
     await updateDoc(doc(db, "chatCollections", currentUser.uid), {
       [data.chatId + ".lastMessage"]: {
-        text,
+        text: text === "" && image ? "&#x1F4F7;" : text,
       },
       [data.chatId + ".date"]: serverTimestamp(),
     });
 
     await updateDoc(doc(db, "chatCollections", data.user.uid), {
       [data.chatId + ".lastMessage"]: {
-        text,
+        text: text === "" && image ? "&#x1F4F7;" : text,
       },
       [data.chatId + ".date"]: serverTimestamp(),
     });
-  console.log("hiiii");
-    setText("")
-    setImage(null)
+
+    setText("");
+    setImage(null);
   };
 
   return (
@@ -80,7 +94,7 @@ const Inputs = () => {
         value={text}
       />
       <div className="send">
-        <img src={plus} alt="" />
+        {/* <img src={plus} alt="" /> */}
         <input
           type="file"
           id="file"
@@ -90,7 +104,9 @@ const Inputs = () => {
         <label htmlFor="file">
           <img src={gallery} alt="" />
         </label>
-        <button onClick={handleSubmit}>send</button>
+        <button onClick={() => (image || text !== "" ? handleSubmit() : "")}>
+          send
+        </button>
       </div>
     </div>
   );

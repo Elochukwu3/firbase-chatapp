@@ -13,22 +13,25 @@ import {
 import { db } from "../firebase";
 import { AuthContext } from "../context/AuthContext";
 const Search = () => {
-  const [username, setUsername] = useState("");
+  const [username, setUsername] = useState("elochukwu");
   const [user, setUser] = useState(null);
-  const [error, setError] = useState(false);
+  const [error, setError] = useState(null);
   const { currentUser } = useContext(AuthContext);
-  console.log(currentUser.uid);
 
   const handleSearch = async () => {
     const q = query(
       collection(db, "users"),
-      where("displayName", "==", username)
+      where("displayName", "==", username.trim().toLowerCase())
     );
 
     try {
       const querySnapshot = await getDocs(q);
+      if (querySnapshot.empty) {
+        setError("user not found");
+      }
       querySnapshot.forEach((doc) => {
         setUser(doc.data());
+        setError(null);
       });
     } catch (error) {
       setError(error);
@@ -36,12 +39,13 @@ const Search = () => {
   };
 
   const handleKey = (e) => {
+    setError(null);
     e.code === "Enter" && handleSearch();
   };
 
   const handleSelect = async () => {
     const comibinedId =
-      currentUser.uid > user.id  
+      currentUser.uid > user.uid
         ? currentUser.uid + user.uid
         : user.uid + currentUser.uid;
 
@@ -52,16 +56,16 @@ const Search = () => {
         await setDoc(doc(db, "chats", comibinedId), { messages: [] });
 
         await updateDoc(doc(db, "chatCollections", currentUser.uid), {
-          [comibinedId+".userInfo"]: {
+          [comibinedId + ".userInfo"]: {
             uid: user.uid,
             displayName: user.displayName,
             photoURL: user.photoURL,
           },
-          [comibinedId+".date"]: serverTimestamp(),
+          [comibinedId + ".date"]: serverTimestamp(),
         });
 
         await updateDoc(doc(db, "chatCollections", user.uid), {
-          [comibinedId+".userInfo"]: {
+          [comibinedId + ".userInfo"]: {
             uid: currentUser.uid,
             displayName: currentUser.displayName,
             photoURL: currentUser.photoURL,
@@ -70,22 +74,30 @@ const Search = () => {
         });
       }
     } catch (error) {}
-    setUser(null)
-    setUsername('')
+    setUser(null);
+    setUsername("");
   };
+  const searchInput = ()=>{
+    if (currentUser.displayName !== username) {
+      handleSearch()
+    }
+  }
 
   return (
     <div className="search">
+      <p>search for users to start chatting {"(e.g romauld, elochukwu, john)"}</p>
       <div className="searchInfo">
+
         <input
           type="text"
           placeholder="find a user"
-          onKeyDown={handleKey}
+          onKeyDown={handleKey}   
           onChange={(e) => setUsername(e.target.value)}
           value={username}
         />
+        <button onClick={searchInput}>seacrh</button>
       </div>
-      {error && <span>user not found!</span>}
+      {error && <span className="notFound">user not found!</span>}
       {user && (
         <div className="usersChat" onClick={handleSelect}>
           <img src={user.photoURL} alt="" />

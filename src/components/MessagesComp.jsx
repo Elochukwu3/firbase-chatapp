@@ -10,11 +10,11 @@ const MessagesComp = () => {
 
   useEffect(() => { 
     const getMesages= () => {
-      const unsub = onSnapshot(doc(db, "chats", data.chatId), (doc) => {
+      const unSub = onSnapshot(doc(db, "chats", data.chatId), (doc) => {
         doc.exists() && setEachMsg(doc.data().messages)
       });
       return () => {
-        unsub();
+        unSub();
       };
     };
     data.chatId && getMesages();

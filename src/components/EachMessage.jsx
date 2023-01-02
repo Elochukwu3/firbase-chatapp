@@ -11,32 +11,54 @@ const EachMessage = ({ message }) => {
 
   const { currentUser } = useContext(AuthContext);
   const { data } = useContext(ChatContext);
-console.log(message.senderId);
-console.log(currentUser.uid);
-  return (
-    <div
-      ref={myRef}
-      className={`eachMessage ${
-        message.senderId === currentUser.uid && "owner"
-      }`}
-    >
-      <div className="messageInfo">
-        <img
-          src={
-            message.senderId === currentUser.uid
-              ? currentUser.photoURL
-              : data.user.photoURL
-          }
-          alt=""
-        />
-        <span>just now</span>
+  let total_miliseconds =
+    (message.date.seconds + message.date.nanoseconds * 0.00000001) * 1000;
+  let timeSent = new Date(total_miliseconds);
+  let messageHour = timeSent.getHours().toString();
+  let messageMin = timeSent.getMinutes().toString();
+const replace = (num)=>{
+  let numLength = num.length,  minLength = 2;
+
+  if (numLength >= minLength)return num
+  return "0".repeat(minLength - numLength) + num; 
+}
+const displayHour = replace(messageHour)
+const displayMin = replace(messageMin)
+
+
+  if (message.text !== "")
+    return (
+      <div
+        ref={myRef}
+        className={`eachMessage ${
+          message.senderId === currentUser.uid && "owner"
+        }`}
+      >
+        <div className="messageInfo">
+          <img
+            src={
+              message.senderId === currentUser.uid
+                ? currentUser.photoURL
+                : data.user.photoURL
+            }
+            alt=""
+          />
+        </div>
+        <div className="messageContent">
+          {message.text !== "image" && (
+            <p>
+              {message.text} <span> {`${displayHour}:${displayMin}`}</span>
+            </p>
+          )}
+          {message.img && (
+            <div>
+              <img src={message.img} alt="" /> <br />
+              <small> {`${displayHour}:${displayMin}`}</small>
+            </div>
+          )}
+        </div>
       </div>
-      <div className="messageContent">
-        <p>{message.text}</p>
-        {message.img && <img src={message.img} alt="" />}
-      </div>
-    </div>
-  );
+    );
 };
 
 export default EachMessage;
