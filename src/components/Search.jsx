@@ -83,6 +83,8 @@ const Search = () => {
     }
   }
 
+  
+
   return (
     <div className="search">
       <p>search for users to start chatting {"(e.g romauld, elochukwu, john)"}</p>
