@@ -6,7 +6,7 @@ const Home = () => {
   const [set, setSet] = useState(null);
   const [setSide, setSetSide] = useState(null);
   const homeRef = useRef(null);
-  const { data, setDisplay } = useContext(ChatContext);
+  const { data} = useContext(ChatContext);
 
   useEffect(() => {
     const parentClass = homeRef.current;

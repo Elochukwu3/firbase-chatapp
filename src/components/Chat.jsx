@@ -1,7 +1,5 @@
-import React, { useContext, useRef } from "react";
-import plus from "../images/plus.png";
+import React, { useContext } from "react";
 import chat from "../images/chat.png";
-import key from "../images/key.png";
 import MessagesComp from "./MessagesComp";
 import Inputs from "./Inputs";
 import { ChatContext } from "../context/ChatContext";

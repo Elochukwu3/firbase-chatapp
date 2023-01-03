@@ -1,7 +1,7 @@
-import React, { useState, useContext, useRef, useEffect } from "react";
+import React, { useContext, useRef, useEffect } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { ChatContext } from "../context/ChatContext";
-import elo from "../images/elo.jpg";
+
 
 const EachMessage = ({ message }) => {
   const myRef = useRef();
@@ -51,7 +51,7 @@ const displayMin = replace(messageMin)
             </p>
           )}
           {message.img && (
-            <div>
+            <div className="msgImge">
               <img src={message.img} alt="" /> <br />
               <small> {`${displayHour}:${displayMin}`}</small>
             </div>
