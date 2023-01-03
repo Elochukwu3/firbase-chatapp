@@ -308,9 +308,8 @@
         color: rgb(55, 206, 225);
         font-size: 13px;
         flex-wrap: wrap;
-        white-space: nowrap;
-        word-break: keep-all;
         scrollbar-color: rgb(197, 194, 194) #0f4e60;
+        text-transform: capitalize;
         &::-webkit-scrollbar {
           width: 11px;
         }
@@ -323,7 +322,6 @@
 
         @include mobile() {
           width: 100%;
-          justify-content: center;
           padding: 10px 5px;
           &::-webkit-scrollbar {
             display: none !important;

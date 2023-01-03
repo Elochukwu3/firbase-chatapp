@@ -15,3 +15,13 @@ body {
 body::-webkit-scrollbar {
   display: none;
 }
+@media screen and (max-width: 480px) {
+  html {
+    background: #2b6777;
+    overflow-x: hidden;
+  }
+
+  body {
+    overflow: hidden;
+  }
+}
