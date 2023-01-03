@@ -19,13 +19,27 @@
   align-items: center;
   height: 100vh;
 }
+.red,
+.yellow,
+.green {
+  font-size: 16px;
+}
+.red {
+  color: red;
+}
+.green {
+  color: rgb(19, 134, 19);
+}
+.yellow {
+  color: yellow;
+}
 .formContainer {
   background: #2b6777;
   min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  input[type ="text"]{
+  input[type="text"] {
     font-size: 16px;
     touch-action: none;
   }
@@ -139,9 +153,9 @@
       background: #0f3742;
       position: relative;
       height: 100%;
-&::-webkit-scrollbar{
-  display: none;
-}
+      &::-webkit-scrollbar {
+        display: none;
+      }
       @include mobile() {
         width: 100%;
         &.appear {
@@ -151,7 +165,7 @@
           transition: height 300s ease-in;
         }
       }
-      
+
       .navbar {
         display: flex;
         align-items: center;
@@ -192,10 +206,10 @@
       }
       .search {
         border-bottom: 1px solid #52ab98;
-        p{
+        p {
           color: white;
           font-size: 14px;
-          padding: 4px;
+          padding: 5px 10px;
           font-style: italic;
         }
 
@@ -203,7 +217,7 @@
           padding: 10px;
           // width: 100%;
           display: flex;
-          button{
+          button {
             border: none;
             padding: 7px 10px;
             background-color: #0f4e60;
@@ -228,59 +242,69 @@
         }
       }
       .chats {
-        height: calc(100% - 168px);
+        height: calc(100% - 250px);
         overflow-y: auto;
         scrollbar-width: thin;
         &::-webkit-scrollbar {
           display: none;
         }
+        @include mobile() {
+          height: calc(100% - 298px);
+        }
       }
-        .usersChat {
-          display: flex;
-          padding: 10px;
-          gap: 10px;
-          cursor: pointer;
-          align-items: center;
-          color: white;
-          @include mobile(){
-            border-bottom: 1px solid  #2c584f;
-          }
+      .usersChat {
+        display: flex;
+        padding: 10px;
+        gap: 10px;
+        cursor: pointer;
+        align-items: center;
+        color: white;
+        @include mobile() {
+          border-bottom: 1px solid #2c584f;
+        }
 
-          &:hover {
-            background-color: #072128;
+        &:hover {
+          background-color: #072128;
+        }
+        img {
+          width: 50px;
+          height: 50px;
+          background-color: #e1eae8;
+          border-radius: 50%;
+          object-fit: cover;
+        }
+        .chatInfo {
+          span {
+            font-size: 18px;
+            font-weight: 500;
           }
-          img {
-            width: 50px;
-            height: 50px;
-            background-color: #e1eae8;
-            border-radius: 50%;
-            object-fit: cover;
-          }
-          .chatInfo {
-            span {
-              font-size: 18px;
-              font-weight: 500;
-            }
-            p {
-              font-size: 14px;
-              color: lightgray;
-            }
+          p {
+            font-size: 14px;
+            color: lightgray;
           }
         }
-      
+      }
 
       .mobile-icon {
-        display: none;
-        height: 9%;
-        width: 100%;
+        display: flex;
+        gap: 5px;
+        width: 320px;
+        overflow-x: hidden;
+        overflow-y: scroll;
+        padding: 10px 5px;
         background-color: #072128;
+        color: rgb(55, 206, 225);
+        font-size: 13px;
+        flex-wrap: wrap;
+        white-space: nowrap;
+        word-break: keep-all;
+        &::-webkit-scrollbar {
+          display: none;
+        }
         @include mobile() {
-          display: block;
-          display: grid;
-          grid-template-columns: repeat(2, 1fr);
+          width: 100%;
           justify-content: center;
-          align-items: center;
-          padding: 0 10px;
+          padding: 10px 5px;
         }
       }
     }
@@ -307,19 +331,34 @@
         padding: 10px;
         background-color: #072128;
         color: lightgray;
-        
+        text-transform: capitalize;
+        .destk-name {
+          @include mobile() {
+            display: none;
+          }
+        }
         .icons {
           display: flex;
           align-items: center;
           gap: 13px;
           padding: 10px;
+          .mobile-name {
+            display: none;
+            @include mobile() {
+              display: block;
+            }
+          }
         }
         img {
           object-fit: cover;
           cursor: pointer;
         }
         .invert-img {
-          filter: brightness(10);
+          font-size: 30px;
+          cursor: pointer;
+          font-weight: bold;
+          padding: 2px 10px;
+          background-color: #2a7a90;
           display: none;
           @include mobile() {
             display: block;
@@ -413,7 +452,7 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
-        
+
         input {
           width: 100%;
           border: none;

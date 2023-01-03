@@ -17,11 +17,12 @@ const Chat = ({myRef, ownRef}) => {
   return (
     <div className="chatbar">
       <div className="chatInfo">
-        <span>{data.user?.displayName}</span>
+        <span onClick={handleDisplay}  className="invert-img">&#x2190;</span>
+        <span className="destk-name">{data.user?.displayName}</span>
         <div className="icons">
+          <span className="mobile-name">{data.user?.displayName}</span>
           <img src={chat} alt="" />
-          <img src={key} alt="" className="invert-img" />
-          <img src={plus} alt="" className="invert-img" onClick={handleDisplay}/>
+
         </div>
       </div>
       <MessagesComp />

@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import {
   collection,
   query,
@@ -13,7 +13,7 @@ import {
 import { db } from "../firebase";
 import { AuthContext } from "../context/AuthContext";
 const Search = () => {
-  const [username, setUsername] = useState("elochukwu");
+  const [username, setUsername] = useState("");
   const [user, setUser] = useState(null);
   const [error, setError] = useState(null);
   const { currentUser } = useContext(AuthContext);
@@ -40,7 +40,9 @@ const Search = () => {
 
   const handleKey = (e) => {
     setError(null);
-    e.code === "Enter" && handleSearch();
+    if (currentUser.displayName !== username) {
+      e.code === "Enter" && handleSearch();
+    }
   };
 
   const handleSelect = async () => {
@@ -77,23 +79,25 @@ const Search = () => {
     setUser(null);
     setUsername("");
   };
-  const searchInput = ()=>{
+  const searchInput = () => {
     if (currentUser.displayName !== username) {
-      handleSearch()
+      handleSearch();
     }
-  }
-
-  
+  };
 
   return (
     <div className="search">
-      <p>search for users to start chatting {"(e.g romauld, elochukwu, john)"}</p>
+      <p className="caption">
+        search for users from list below to start chatting{" "}
+        <span className="red">&hearts; </span>
+        <span className="yellow">&hearts; </span>
+        <span className="green">&hearts;</span>
+      </p>
       <div className="searchInfo">
-
         <input
           type="text"
           placeholder="find a user"
-          onKeyDown={handleKey}   
+          onKeyDown={handleKey}
           onChange={(e) => setUsername(e.target.value)}
           value={username}
         />
