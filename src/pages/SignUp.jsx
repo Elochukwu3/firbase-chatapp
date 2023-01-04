@@ -40,14 +40,14 @@ const SignUp = () => {
           getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
             await updateProfile(response.user, {
               displayName: userName,
-              photoURL: downloadURL,
+              photoURL: downloadURL ? downloadURL :"",
             });
 
             await setDoc(doc(db, "users", response.user.uid), {
               uid: response.user.uid,
               displayName: userName,
               email: userEmail,
-              photoURL: downloadURL,
+              photoURL:  downloadURL ? downloadURL :"",
             });
             await setDoc(doc(db, "chatCollections", response.user.uid), {});
             setTimeout(() => {
@@ -102,7 +102,7 @@ const SignUp = () => {
               />
               <label htmlFor="file">
                 <img src={gallery} alt="" />
-                <span>Add an Avatar</span>
+                <span>Add an Avatar {"(maxmum size 1.5MB)"}</span>
               </label>
               <button type="submit">Sign up</button>
               {err && (

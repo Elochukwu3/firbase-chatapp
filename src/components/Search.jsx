@@ -40,9 +40,10 @@ const Search = () => {
 
   const handleKey = (e) => {
     setError(null);
-    if (currentUser.displayName !== username) {
-      e.code === "Enter" && handleSearch();
-    }
+
+    e.code === "Enter" &&
+      currentUser.displayName !== username &&
+      handleSearch();
   };
 
   const handleSelect = async () => {
